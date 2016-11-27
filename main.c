@@ -53,7 +53,7 @@ int main(void)
     // 5. Configure the UART clock source by writing to the UARTCC register
     UART0_CC_R = 0x0;          
 
-    // 6. Optionally, configure the µDMA channel (see ìMicro Direct Memory Access (µDMA)î on page 585)
+    // 6. Optionally, configure the ¬µDMA channel (see ‚ÄúMicro Direct Memory Access (¬µDMA)‚Äù on page 585)
     // and enable the DMA option(s) in the UARTDMACTL register
     
     // 7. Enable the UART by setting the UARTEN bit in the UARTCTL register.
@@ -106,33 +106,6 @@ void printString(char * string)
   }
 }
 
-char* readString(char delimiter)
-{
 
-  int stringSize = 0;
-  char* string = (char*)calloc(10,sizeof(char));
-  char c = readChar(); 
-  printChar(c);
   
-  while(c!=delimiter)
-  { 
 
-    *(string+stringSize) = c; // put the new character at the end of the array
-    stringSize++;
-    
-    if((stringSize%10) == 0) // string length has reached multiple of 10
-    {
-      string = (char*)realloc(string,(stringSize+10)*sizeof(char)); // adjust string size by increasing size by another 10
-    }
-    
-    c = readChar();
-    printChar(c); // display the character the user typed
-  }
-
-  if(stringSize == 0)
-  {
-   
-    return '\0'; // null car
-  }
-  return string;
-}
