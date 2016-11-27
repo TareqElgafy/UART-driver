@@ -12,22 +12,18 @@ int main(void)
 {
   
   char c ;
-    // 1. Enable the UART module using the RCGCUART register (see page 344).
+    //  Enable the UART module using the RCGCUART register.
     SYSCTL_RCGCUART_R |= (1<<0); 
     
-    // 2. Enable the clock to the appropriate GPIO module via the RCGCGPIO register (see page 340).
-    // To find out which GPIO port to enable, refer to Table 23-5 on page 1351.
+    //  Enable the clock to the appropriate GPIO module via the RCGCGPIO register.
     SYSCTL_RCGCGPIO_R |= (1<<0); 
     
-    // 3. Set the GPIO AFSEL bits for the appropriate pins (see page 671). To determine which GPIOs to
-    // configure, see Table 23-4 on page 1344
+    //  Set the GPIO AFSEL bits for the appropriate pins.
     GPIO_PORTA_AFSEL_R = (1<<1)|(1<<0); 
     
-    // 4. Configure the GPIO current level and/or slew rate as specified for the mode selected (see
-    // page 673 and page 681
     
-    // 5. Configure the PMCn fields in the GPIOPCTL register to assign the UART signals to the appropriate
-    // pins (see page 688 and Table 23-5 on page 1351).
+    //  Configure the PMCn fields in the GPIOPCTL register to assign the UART signals to the appropriate
+    // pins.
     GPIO_PORTA_PCTL_R = (1<<0)|(1<<4);  
     
     GPIO_PORTA_DEN_R = (1<<0)|(1<<1); 
@@ -53,10 +49,7 @@ int main(void)
     // 5. Configure the UART clock source by writing to the UARTCC register
     UART0_CC_R = 0x0;          
 
-    // 6. Optionally, configure the µDMA channel (see “Micro Direct Memory Access (µDMA)” on page 585)
-    // and enable the DMA option(s) in the UARTDMACTL register
-    
-    // 7. Enable the UART by setting the UARTEN bit in the UARTCTL register.
+    // 6. Enable the UART by setting the UARTEN bit in the UARTCTL register.
     UART0_CTL_R = (1<<0)|(1<<8)|(1<<9); 
     
     // Configure LED pins
